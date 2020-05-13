@@ -1,0 +1,72 @@
+<script type="text/javascript">
+    RED.nodes.registerType('thermostat',{
+        category: 'climate',
+        color: '#ddaa99',
+        defaults: {
+            name: {value:""},
+            highLimit: {required:true, validate:RED.validators.number()},
+            lowLimit: {required:true, validate:RED.validators.number()}
+        },
+        inputs:1,
+        outputs:2,
+        inputLabels: "input temperature",
+        outputLabels: ["output state on every input","output on state transition"],
+        icon: "font-awesome/fa-thermometer-2",
+        label: function() {
+            return this.name||"thermostat";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="thermostat">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-highLimit"><i class="fa fa-thermometer-4"></i> High limit</label>
+        <input type="number" id="node-input-highLimit" placeholder="Limit above which the heater will switch off">
+    </div>
+    <div class="form-row">
+        <label for="node-input-lowLimit"><i class="fa fa-thermometer-0"></i> Low limit</label>
+        <input type="number" id="node-input-lowLimit" placeholder="Limit below which the heater will switch on">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="thermostat">
+    <p>A simple thermostat node that will request a heater state depending on temperature in relation to specified limits.</p>
+
+    <h3>Inputs</h3>
+        <dl class="message-properties">
+            <dt>msg.payload<span class="property-type">string | buffer</span></dt>
+            <dd>The temperature to operate on.</dd>
+        </dl>
+
+    <h3>Outputs</h3>
+        <ol class="node-ports">
+            <li>Continuous output
+                <dl class="message-properties">
+                    <dt>msg.payload<span class="property-type">bool</span></dt>
+                    <dd>The requested heater state. Output is updated at every input to the node.</dd>
+                </dl>
+            </li>
+            <li>Transition output
+                <dl class="message-properties">
+                    <dt>msg.payload<span class="property-type">bool</span></dt>
+                    <dd>The requested heater state. Output is updated when the state changes.</dd>
+                </dl>
+            </li>
+        </ol>
+
+    <h3>Configuration</h3>
+        <dl class="message-properties">
+            <dt>High Limit<span class="property-type">number</span></dt>
+            <dd>Requested heater state will switch to <code>false</code> when temperature is above this limit.</dd>
+            <dt>Low Limit<span class="property-type">number</span></dt>
+            <dd>Requested heater state will switch to <code>true</code> when temperature is below this limit.</dd>
+        </dl>
+
+    <h3>Details</h3>
+        <p>Input <code>msg.payload</code> is expected to be a number or string containing a float, for example from MQTT.</p>
+        <p>Initial state for heater request is <code>false</code>, which will remain until temperature pass the configured low limit.</p>
+</script>
