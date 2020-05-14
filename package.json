@@ -8,6 +8,11 @@
   },
   "author": "Eric Fornstedt",
   "license": "ISC",
+  "keywords": [
+    "node-red",
+    "thermostat",
+    "climate"
+  ],
   "node-red" : {
     "nodes": {
         "thermostat": "thermostat/thermostat.js"
