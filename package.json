@@ -1,7 +1,8 @@
 {
   "name": "node-red-contrib-basic-thermostat",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A simple thermostat node that will request a heater state depending on temperature in relation to specified limits.",
+  "homepage": "https://github.com/eric1980/node-red-contrib-basic-thermostat#readme",
   "main": "thermostat/thermostat.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,6 +14,10 @@
     "thermostat",
     "climate"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eric1980/node-red-contrib-basic-thermostat.git"
+  },
   "node-red" : {
     "nodes": {
         "thermostat": "thermostat/thermostat.js"
